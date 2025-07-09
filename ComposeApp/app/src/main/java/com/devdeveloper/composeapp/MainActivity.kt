@@ -6,12 +6,12 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.paddingFrom
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.CircleShape
@@ -21,8 +21,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color.Companion.Green
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -52,12 +55,16 @@ fun MainScreen(
 fun ProfileCard() {
     Card(
         modifier = Modifier
+            .padding(16.dp)
             .fillMaxWidth()
-            .wrapContentHeight()
-            .padding(16.dp),
+            .wrapContentHeight(align = Alignment.Top),
         elevation = CardDefaults.cardElevation(8.dp)
     ) {
-        Row {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Start
+        ) {
             ProfilePicture()
             ProfileContent()
         }
@@ -70,13 +77,14 @@ fun ProfilePicture() {
         shape = CircleShape,
         border = BorderStroke(width = 2.dp, color = Green),
         modifier = Modifier.padding(16.dp),
-        elevation = CardDefaults.cardElevation(16.dp)
+        elevation = CardDefaults.cardElevation(4.dp)
 
     ) {
         Image(
-            painter = painterResource(R.drawable.ic_launcher_background),
+            painter = painterResource(R.drawable.mann),
             contentDescription = "Profile Image",
-            modifier = Modifier.size(72.dp)
+            modifier = Modifier.size(72.dp),
+            contentScale = ContentScale.Crop
         )
     }
 
@@ -86,15 +94,16 @@ fun ProfilePicture() {
 @Composable
 fun ProfileContent() {
     Column(
-        modifier = Modifier.padding(16.dp)
+        modifier = Modifier
+            .padding(8.dp)
+            .fillMaxWidth()
     ) {
-
         Text(
-            text = "Devendra Bhatta", style = MaterialTheme.typography.bodyLarge,
+            text = "John Doe", style = MaterialTheme.typography.headlineMedium,
         )
-
         Text(
-            text = "bhattadevendra60@gmail.com", style = MaterialTheme.typography.bodyMedium,
+            text = "Active Now", style = MaterialTheme.typography.bodyLarge,
+            modifier = Modifier.alpha(0.8f)
         )
     }
 }
