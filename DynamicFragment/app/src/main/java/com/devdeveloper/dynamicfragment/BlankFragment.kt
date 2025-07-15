@@ -1,4 +1,4 @@
-package com.devdeveloper.fragment
+package com.devdeveloper.dynamicfragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,9 +8,11 @@ import android.view.ViewGroup
 
 class BlankFragment : Fragment() {
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-     }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
