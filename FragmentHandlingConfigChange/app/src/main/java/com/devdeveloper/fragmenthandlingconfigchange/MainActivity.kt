@@ -1,4 +1,4 @@
-package com.devdeveloper.replacefragment
+package com.devdeveloper.fragmenthandlingconfigchange
 
 import android.os.Bundle
 import android.widget.Button
@@ -13,7 +13,6 @@ class MainActivity : AppCompatActivity() {
     val firstFragment: Fragment = FirstFragment()
     val secondFragment: Fragment = SecondFragment()
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -24,26 +23,41 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        val button: Button = findViewById(R.id.btn)
-        button.setOnClickListener {
+        val addButton: Button = findViewById(R.id.add_btn)
+        val replaceButton: Button = findViewById(R.id.replace_btn)
+
+//        if (savedInstanceState == null) {
+//            supportFragmentManager
+//                .beginTransaction()
+//                .add(R.id.fragment_container,firstFragment)
+//                .commit()
+//        }
+
+
+        addButton.setOnClickListener {
+            addFragment()
+
+        }
+
+        replaceButton.setOnClickListener {
             replaceFragment()
         }
     }
 
-    fun replaceFragment() {
-        if (!firstFragment.isAdded) {
 
-            supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.fragment_container, firstFragment)
-                .commit()
-        } else {
-
-            supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.fragment_container, secondFragment)
-                .commit()
-        }
+    fun addFragment(){
+        supportFragmentManager
+            .beginTransaction()
+            .add(R.id.fragment_container,firstFragment)
+            .commit()
     }
+
+    fun replaceFragment(){
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.fragment_container,secondFragment)
+            .commit()
+    }
+
 
 }

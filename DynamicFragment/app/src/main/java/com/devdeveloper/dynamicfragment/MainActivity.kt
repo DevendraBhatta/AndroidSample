@@ -23,27 +23,31 @@ class MainActivity : AppCompatActivity() {
 
         }
 
-        val addButton: Button = findViewById<Button>(R.id.add_frag_btn)
-        val removeButton: Button = findViewById<Button>(R.id.rem_frag_btn)
+        val addButton: Button = findViewById(R.id.add_frag_btn)
+        val removeButton: Button = findViewById(R.id.rem_frag_btn)
 
-        addButton.setOnClickListener { View ->
+        addButton.setOnClickListener {
             addClicked()
         }
 
-        removeButton.setOnClickListener { View ->
+        removeButton.setOnClickListener {
             removeClicked()
         }
     }
 
     fun addClicked() {
         if (!fragmentInstance.isAdded) {
-            supportFragmentManager.beginTransaction()
-                .add(R.id.frame_layout, fragmentInstance, "Dynamic Fragment").commit()
+            supportFragmentManager
+                .beginTransaction()
+                .add(R.id.frame_layout, fragmentInstance, "Dynamic Fragment")
+                .commit()
         }
 
     }
 
     fun removeClicked() {
-        supportFragmentManager.beginTransaction().remove(fragmentInstance).commit()
+        supportFragmentManager
+            .beginTransaction().remove(fragmentInstance)
+            .commit()
     }
 }
