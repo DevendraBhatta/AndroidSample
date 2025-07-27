@@ -23,41 +23,52 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        val addButton: Button = findViewById(R.id.add_btn)
         val replaceButton: Button = findViewById(R.id.replace_btn)
-
-//        if (savedInstanceState == null) {
-//            supportFragmentManager
-//                .beginTransaction()
-//                .add(R.id.fragment_container,firstFragment)
-//                .commit()
-//        }
+        val removeButton: Button = findViewById(R.id.remove_btn)
 
 
-        addButton.setOnClickListener {
-            addFragment()
-
+        if (savedInstanceState == null) {
+            supportFragmentManager
+                .beginTransaction()
+                .add(R.id.fragment_container, firstFragment)
+                .commit()
         }
 
         replaceButton.setOnClickListener {
-            replaceFragment()
+            if (!firstFragment.isAdded && !secondFragment.isAdded) {
+                supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, firstFragment)
+                    .addToBackStack(null)
+                    .commit()
+            } else if (firstFragment.isAdded && !secondFragment.isAdded) {
+                supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, secondFragment)
+                    .addToBackStack(null)
+                    .commit()
+            } else if (!firstFragment.isAdded && secondFragment.isAdded) {
+                supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, firstFragment)
+                    .addToBackStack(null)
+                    .commit()
+            }
+        }
+
+        removeButton.setOnClickListener {
+            if (firstFragment.isAdded) {
+                supportFragmentManager
+                    .beginTransaction()
+                    .remove(firstFragment)
+                    .commit()
+            } else if (secondFragment.isAdded) {
+                supportFragmentManager
+                    .beginTransaction()
+                    .remove(secondFragment)
+                    .commit()
+
+            }
         }
     }
-
-
-    fun addFragment(){
-        supportFragmentManager
-            .beginTransaction()
-            .add(R.id.fragment_container,firstFragment)
-            .commit()
-    }
-
-    fun replaceFragment(){
-        supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.fragment_container,secondFragment)
-            .commit()
-    }
-
-
 }
